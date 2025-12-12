@@ -1,0 +1,8 @@
+:80 {
+    handle_path /app* {
+        reverse_proxy client-dashboard:3000
+    }
+    handle {
+        reverse_proxy public-web:3000
+    }
+}

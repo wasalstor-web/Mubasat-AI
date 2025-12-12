@@ -1,0 +1,22 @@
+services:
+  caddy:
+    image: caddy:2
+    ports:
+      - "8080:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - public-web
+      - client-dashboard
+
+  public-web:
+    build: ../public-web
+    restart: always
+    environment:
+      - NODE_ENV=production
+
+  client-dashboard:
+    build: ../client-dashboard
+    restart: always
+    environment:
+      - NODE_ENV=production
