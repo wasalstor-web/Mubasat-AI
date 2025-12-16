@@ -1,8 +1,25 @@
-:80 {
-    handle_path /app* {
-        reverse_proxy client-dashboard:3000
+onlainee.space {
+    reverse_proxy mubasat-web:3000
+}
+
+www.onlainee.space {
+    redir https://onlainee.space{uri}
+}
+
+app.onlainee.space {
+    reverse_proxy client-dashboard:3000
+}
+
+api.onlainee.space {
+    handle /v1/* {
+        reverse_proxy python-ai:8000
     }
-    handle {
-        reverse_proxy public-web:3000
+    handle /core/* {
+        reverse_proxy java-core:8080
     }
 }
+
+old.onlainee.space {
+    reverse_proxy public-web:3000
+}
+

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  python-ai:
+    build: ./python-ai-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python-ai-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+    networks:
+      - mubasat-network
+
+  java-core:
+    build: ./java-core-service
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    networks:
+      - mubasat-network
+    depends_on:
+      - python-ai
+
+networks:
+  mubasat-network:
+    driver: bridge

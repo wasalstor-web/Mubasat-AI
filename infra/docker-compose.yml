@@ -1,22 +1,45 @@
 services:
-  caddy:
-    image: caddy:2
-    ports:
-      - "8080:80"
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-    depends_on:
-      - public-web
-      - client-dashboard
-
-  public-web:
-    build: ../public-web
+  mubasat-web:
+    build: ../mubasat-ai-web
     restart: always
+    ports:
+      - "3002:3000"
     environment:
       - NODE_ENV=production
+    networks:
+      - mubasat-network
 
   client-dashboard:
     build: ../client-dashboard
     restart: always
+    ports:
+      - "3001:3000"
     environment:
       - NODE_ENV=production
+    networks:
+      - mubasat-network
+
+  public-web:
+    build: ../public-web
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - mubasat-network
+
+  python-ai:
+    build: ../mubasat-ai-core/python-ai-service
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /opt/mubasat-ai:/opt/mubasat-ai
+    networks:
+      - mubasat-network
+
+networks:
+  mubasat-network:
+    driver: bridge

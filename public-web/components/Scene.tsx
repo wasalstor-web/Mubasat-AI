@@ -5,7 +5,7 @@ import { OrbitControls, Sphere, MeshDistortMaterial } from '@react-three/drei';
 import { useRef } from 'react';
 
 function AnimatedSphere() {
-  const sphereRef = useRef<any>();
+  const sphereRef = useRef<any>(null);
 
   useFrame(({ clock }) => {
     const t = clock.getElapsedTime();
@@ -19,12 +19,12 @@ function AnimatedSphere() {
   return (
     <Sphere visible args={[1, 100, 200]} scale={2.2} ref={sphereRef}>
       <MeshDistortMaterial
-        color="#14b8a6" 
+        color="#ededed"
         attach="material"
         distort={0.4}
         speed={2}
         roughness={0.2}
-        metalness={0.8}
+        metalness={0.9}
       />
     </Sphere>
   );
@@ -36,7 +36,7 @@ export default function Scene() {
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 10, 5]} intensity={1.5} />
-        <pointLight position={[-10, -10, -5]} intensity={1} color="#2dd4bf" />
+        <pointLight position={[-10, -10, -5]} intensity={1} color="#ffffff" />
         <AnimatedSphere />
         <OrbitControls enableZoom={false} autoRotate autoRotateSpeed={0.5} />
       </Canvas>

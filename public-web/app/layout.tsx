@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Mubasat AI",
-  description: "AI Platform with 3D Hero",
+  title: "مبسط AI",
+  description: "منصة الذكاء الاصطناعي المتكاملة",
 };
 
 export default function RootLayout({
